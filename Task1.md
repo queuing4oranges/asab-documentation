@@ -45,7 +45,7 @@ The list of exports is **sorted** from most recent to oldest. You can **search**
 - here, you can also download <img style="width:20px; height:20px; vertical-align:middle;" src="download.svg"/> and delete <img style="width:20px; height:20px; vertical-align:middle;" src="delete.svg"/>  
   <br>
 
-The "Restart" runs the export again as is or with your custom changes. Deleting a scheduled export does not delete the exports that were already generated from it.
+The <span style="color:#325ee3">Restart</span> runs the export again as is or with your custom changes. Deleting a scheduled export does not delete the exports that were already generated from it.
 
 <br>
 
@@ -61,27 +61,16 @@ The <button style="color:#325ee3, padding:2px;">Custom</button> button takes you
 <br>
 
 <h2 style="color:#325ee3">Custom Export</h2>
-<h4 style="color:lightblue;">Tutorial</h4>
+<h4 style="color:lightblue;">Customize your export by selecting:</h4>
 
-<img style="width:20px; height:20px; vertical-align:middle;" src="checkmark.svg"/>
-Select the Data Source (This selection will determine the other export options.)  
-<br>
-<img style="width:20px; height:20px; vertical-align:middle;" src="checkmark.svg"/>
-Select the output.(If you select CSV output, you must enter the column names.)  
-<br>
-<img style="width:20px; height:20px; vertical-align:middle;" src="checkmark.svg"/>
+- `Data Source` (Selection will determine other export options.)
+- `Output` (If you select CSV, you must enter the column names.)
+- `Target` (Depends on the configuration of the export function and can include "e-mail" and "jupyter" targets.Jupyter exports the files directly to jupyter notebook integrated within LogMan.io.
+  Choose a predefined e-mail template from the Library or create there your own from there.).
+- `Schedule`(Allows you to plan your export - fill in date and time for one-off exports. You must strictly follow YYYY-MM-DD HH:mm format. Your date might look like this: _2023-01-01 12:00_.
+  The second variant handes periodicaly scheduled exports. Use _cron_ syntax for this option.)
+- <button style="color:#325ee3">Add new header</button> button adds more columns. You can change the order of the columns by dragging.The same order of columns will be in the resulting table. If you do not fill in the columns or their names do not match the search terms in the database, your table will be empty.
 
-"Add new header" button adds more columns. You can change the order of the columns by dragging.
-The same order of columns will be in the resulting table.
-If you do not fill in the columns or their names do not match the search terms in the database, your table will be empty.
-
-Target option depends on the configuration of the Export function and can incude "e-mail" and "jupyter" targets.
-Jupyter exports the files directly to jupyter notebook integrated within LogMan.io.
-Choose a predefined e-mail template from the Library or create there your own from there.
-
-"Add schedule" button allows you to plan your export.
-Fill in date and time for one-off exports. You must stritly follow YYYY-MM-DD HH:mm format. Your date might look like this: _2023-01-01 12:00_.
-The second variant handes periodicaly scheduled exports. Use _cron_ syntax for this option.
 You can refer to http://en.wikipedia.org/wiki/Cron for more details, random “R” definition keywords are supported, Vixie cron-style “@” keyword expressions are supported.
 
 Query: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html
