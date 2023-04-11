@@ -2,11 +2,11 @@
 
 <br>
 
-- List of Exports
-- Export Detail
-- Start Export
-- Custom Export (Tutorial)
-- Advanced
+- [List of Exports](#list-of-exports)
+- [Export Detail](#export-detail)
+- [Start Export](#start-export)
+- [Custom Export (Tutorial)](#custom-export)
+- [Advanced](#advanced)
 
 <br>
 
@@ -25,7 +25,7 @@
 <br>
 <h4 style="color:lightblue;"> You can... </h4>
 
-- **Create** a new export by using the <button style="background-color:#325ee3; color:white; padding:5px;">New</button> button
+- **Create** a new export by using the <button style="background-color:#325ee3; color:white; padding:3px;">New</button> button
 
 - **View** the details of an export by clicking on its name <span style="color:#788ecb;">export_elastic01</span>
 
@@ -37,7 +37,7 @@
 The list of exports is **sorted** from most recent to oldest. You can **search** the list by name using the search bar <img style="width:20px; height:20px; vertical-align:middle;" src="search.svg"/>.  
 <br>
 
-<h2 style="color:#325ee3"> Export Detail  </h2>
+<h2 style="color:#325ee3" id="export-detail">Export Detail</h2>
 
 <h4 style="color:lightblue;"> You can... </h4>
 
@@ -49,7 +49,7 @@ The <span style="color:#325ee3">Restart</span> runs the export again as is or wi
 
 <br>
 
-<h2 style="color:#325ee3"> Start Export</h2>
+<h2 style="color:#325ee3" id="start-export"> Start Export</h2>
 
 <h4 style="color:lightblue;"> You can... </h4>
 
@@ -57,10 +57,10 @@ The <span style="color:#325ee3">Restart</span> runs the export again as is or wi
 - **run** these directly or
 - **modify** and run with these with custom changes
 
-The <button style="color:#325ee3, padding:2px;">Custom</button> button takes you to a blank form where you can create a **self-made export**.  
+The <button style="color:#325ee3, padding:3px;">Custom</button> button takes you to a blank form where you can create a **self-made export**.  
 <br>
 
-<h2 style="color:#325ee3">Custom Export</h2>
+<h2 style="color:#325ee3" id="custom-export">Custom Export</h2>
 <h4 style="color:lightblue;">Customize your export by selecting:</h4>
 
 - `Data Source`
@@ -77,7 +77,7 @@ The <button style="color:#325ee3, padding:2px;">Custom</button> button takes you
   - fill in date and time for one-off exports
   - strictly follow YYYY-MM-DD HH:mm format - your date might look like this: _2023-01-01 12:00_.
   - the second variant handes periodicaly scheduled exports. Use _cron_ syntax for this option
-- <button style="color:#325ee3">Add new header</button>
+- <button style="color:#325ee3; padding:3px">Add new header</button>
   - adds more columns
   - change the order of the columns by dragging
   - the same order of columns will be in the resulting table
@@ -85,37 +85,39 @@ The <button style="color:#325ee3, padding:2px;">Custom</button> button takes you
 
 You can refer to http://en.wikipedia.org/wiki/Cron for more details:
 
-<img style="width:20px; height:20px; vertical-align:middle;" src="checkmark.svg"/>
+<img style="width:15px; height:15px; vertical-align:middle;" src="checkmark.svg"/>
 random “R” definition keywords are supported
 
-<img style="width:20px; height:20px; vertical-align:middle;" src="checkmark.svg"/>
+<img style="width:15px; height:15px; vertical-align:middle;" src="checkmark.svg"/>
 Vixie cron-style “@” keyword expressions are supported.
+
+<br>
 
 Query: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html
 
-<span style="color:#325ee3">Advanced</span> button lead you to YAML editor. Please see <span style="color:#325ee3">Advanced</span> section for more infromation.  
+<span style="color:#325ee3">Advanced</span> button lead you to YAML editor. Please see <span style="color:#325ee3">Advanced</span> section for more infromation.
+
 <br>
 
-<h2 style="color:#325ee3">Advanced</h2>
+<h2 style="color:#325ee3" id="advanced">Advanced</h2>
 
 Exports defined in the `Exports` section of the Library and Advanced Exports share common YAML format.
+Export files (or advanced exports) may contain following sections:  
+<br>
 
-_Advanced export example_
+_Advanced export example - define_
 
 ```
 define:
   name: Export e-mail
   datasource: elasticsearch
-  output: raw (options: raw / csv / xlsx)
+  output: csv (options: raw / csv / xlsx)
   header: ["Column1", "Column2", "Column3"]
+  schedule: 2023-01-01 00:00 (options: datetime / timestamp / cron)
 
 ```
 
-** please complete it **
-
-Export files (or advanced exorts) may contain following sections:
-
-#### define
+### _define_
 
 The define section includes the following parameters:
 
@@ -124,21 +126,36 @@ The define section includes the following parameters:
 - `output`: The output format for the export. Available options are "raw", "csv", and "xlsx" for ES DataSources, and "raw" for Kafka DataSources.
 - `header`: When using "csv" or "xlsx" output, you must specify the header of the resulting table as an array of column names. These will appear in the same order as they are listed.
 - `schedule`- There are three options how to schedule an export
+
   - **datetime** in a format YYYY-MM-DD HH:mm (e.g. 2023-01-01 00:00)
   - **timestamp** as integer (e.g. 1674482460)
   - **cron** - you can refer to http://en.wikipedia.org/wiki/Cron for more details, random “R” definition keywords are supported, and remain consistent only within their croniter() instance, Vixie cron-style “@” keyword expressions are supported.
 
-#### target
+  <br>
+
+_Advanced export example - target_
+
+```
+target:
+  type: download (options: download / email / jupyter)
+  email: to (other optional: cc / bcc / from / subject / body)
+
+```
+
+### _target_
 
 The target section includes the following parameters:
 
 - `type`: An array of target types for the export. Possible options are "download", "email", and "jupyter". "download" is always selected if the target section is missing.
-- `email`: For email target type, you must specify at least the `to` field, which is an array of recipient email addresses. Other optional fields include:
+- `email`: For email target type, **you must specify at least the `to` field**, which is an array of recipient email addresses. Other optional fields include:
   - `cc`: an array of CC recipients
   - `bcc`: an array of BCC recipients
   - `from`: the sender's email address (string)
   - `subject`: the subject of the email (string)
-  - `body`: a file name (with suffix) stored in the Template folder of the library, used as the email body template. You can also add special `parameters` to be used in the template. Otherwise, use any keyword from the define section of your export as a template parameter (for any export it is: `name`, `datasource`, `output`, for specific exports, you can also use parameters. `compression`, `header`, `schedule`, `timezone`, `tenant`).
+  - `body`: a file name (with suffix) stored in the Template folder of the library, used as the email body template. You can also add special `parameters` to be used in the template.  
+    Otherwise, use any keyword from the define section of your export as a template parameter:
+    - `name`, `datasource`, `output` (for any export)
+    - `compression`, `header`, `schedule`, `timezone`, `tenant` (for a specific export)
 
 #### query
 
