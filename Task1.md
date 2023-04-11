@@ -42,7 +42,7 @@ The list of exports is **sorted** from most recent to oldest. You can **search**
 <h4 style="color:lightblue;"> You can... </h4>
 
 - see the **complete** information about a specific export on the detail screen
-- here, you can also download <img style="width:20px; height:20px; vertical-align:middle;" src="download.svg"/> and delete <img style="width:20px; height:20px; vertical-align:middle;" src="delete.svg"/>  
+- also download <img style="width:20px; height:20px; vertical-align:middle;" src="download.svg"/> and delete <img style="width:20px; height:20px; vertical-align:middle;" src="delete.svg"/>  
   <br>
 
 The <span style="color:#325ee3">Restart</span> runs the export again as is or with your custom changes. Deleting a scheduled export does not delete the exports that were already generated from it.
@@ -63,19 +63,38 @@ The <button style="color:#325ee3, padding:2px;">Custom</button> button takes you
 <h2 style="color:#325ee3">Custom Export</h2>
 <h4 style="color:lightblue;">Customize your export by selecting:</h4>
 
-- `Data Source` (Selection will determine other export options.)
-- `Output` (If you select CSV, you must enter the column names.)
-- `Target` (Depends on the configuration of the export function and can include "e-mail" and "jupyter" targets.Jupyter exports the files directly to jupyter notebook integrated within LogMan.io.
-  Choose a predefined e-mail template from the Library or create there your own from there.).
-- `Schedule`(Allows you to plan your export - fill in date and time for one-off exports. You must strictly follow YYYY-MM-DD HH:mm format. Your date might look like this: _2023-01-01 12:00_.
-  The second variant handes periodicaly scheduled exports. Use _cron_ syntax for this option.)
-- <button style="color:#325ee3">Add new header</button> button adds more columns. You can change the order of the columns by dragging.The same order of columns will be in the resulting table. If you do not fill in the columns or their names do not match the search terms in the database, your table will be empty.
+- `Data Source`
+  - selection will determine other export options
+- `Output`
+  - when selecting CSV, you must enter the column names
+- `Target`
+  - depends on the configuration of the export function
+  - can include "e-mail" and "jupyter" targets
+  - jupyter exports the files directly to jupyter notebook integrated within LogMan.io.
+  - choose a predefined e-mail template from the Library or create your own
+- `Schedule`
+  - allows you to plan your export
+  - fill in date and time for one-off exports
+  - strictly follow YYYY-MM-DD HH:mm format - your date might look like this: _2023-01-01 12:00_.
+  - the second variant handes periodicaly scheduled exports. Use _cron_ syntax for this option
+- <button style="color:#325ee3">Add new header</button>
+  - adds more columns
+  - change the order of the columns by dragging
+  - the same order of columns will be in the resulting table
+  - if you do not fill in the columns or their names do not match the search terms in the database, your table will be empty.
 
-You can refer to http://en.wikipedia.org/wiki/Cron for more details, random “R” definition keywords are supported, Vixie cron-style “@” keyword expressions are supported.
+You can refer to http://en.wikipedia.org/wiki/Cron for more details:
+
+<img style="width:20px; height:20px; vertical-align:middle;" src="checkmark.svg"/>
+random “R” definition keywords are supported
+
+<img style="width:20px; height:20px; vertical-align:middle;" src="checkmark.svg"/>
+Vixie cron-style “@” keyword expressions are supported.
 
 Query: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html
 
-"Advanced" button lead you to YAML editor. Please see "Advanced" section for more infromation.
+<span style="color:#325ee3">Advanced</span> button lead you to YAML editor. Please see <span style="color:#325ee3">Advanced</span> section for more infromation.  
+<br>
 
 <h2 style="color:#325ee3">Advanced</h2>
 
@@ -87,6 +106,8 @@ _Advanced export example_
 define:
   name: Export e-mail
   datasource: elasticsearch
+  output: raw (options: raw / csv / xlsx)
+  header: ["Column1", "Column2", "Column3"]
 
 ```
 
