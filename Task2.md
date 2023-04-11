@@ -56,8 +56,7 @@ attention_required(self, att: dict, att_id=None)
 It takes the following parameters:
 
 - `att` - the attention required error as a dictionary
-- `att_id` - the ID of the attention required error, if it exists (if it does not, a new ID is generated)
-- `att_id` - returns the att_id of the attention required error  
+- `att_id` - the ID of the attention required error, if it exists (if it does not, a new ID is generated); it returns the att_id of the attention required error  
   <br>
 
 The <span style="font-weight:bold; font-style:italic" id="remove_attention">remove_attention method</span> is used for removing an attention required error from the AttentionRequired property of the class:
