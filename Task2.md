@@ -19,6 +19,7 @@ The ApiService module provides the ApiService class, which is a subclass of the 
 - [initialize_web](#initialize_web)
 - [initialize_zookeeper](#initialize_zookeeper)
 - [\_do_zookeeper_adv_data](#do_zookeeper_adv)
+- [\_on_zkcontainer_start](#zkcontainer_start)
   <br>
 
 The <span style="font-weight:bold; font-style:italic" id="constructor-method">constructor method</span> initializes the ApiService class.
@@ -36,7 +37,7 @@ It takes two parameters
 It initializes the following properties of the class:
 
 | Properties        | Default value    | Used for storing                |
-| ----------------- | ---------------- | ------------------------------- |
+| :---------------- | :--------------- | :------------------------------ |
 | WebContainer      | None             | the web container               |
 | ZkContainer       | None             | ZooKeeper container             |
 | MetricWebHandler  | None             | Metric web handler              |
@@ -78,7 +79,7 @@ It takes in an optional parameter `webcontainer`, which is the web container to 
 <br>
 
 | Properties       | stores:                              |
-| ---------------- | ------------------------------------ |
+| :--------------- | :----------------------------------- |
 | WebContainer     | web container                        |
 | APILogHandler    | web API loggin handler               |
 | format           | logging formatter                    |
@@ -106,3 +107,25 @@ The <span style="font-weight:bold; font-style:italic" id="do_zookeeper_adv"> \_d
 ```
 _do_zookeeper_adv_data(self)
 ```
+
+The method is creating a dictionary called `adv_data` that contains various metadata about the application:
+
+- `appclass` - the name of the class of the application object(self.App)
+- `launchtime`- time the application was launched, converted to ISO 8601 format and appended with a 'Z' to indicate UTC time zone
+- `hostname` - hostname of the machine where the application is running
+- `servername`- name of the server where the application is running
+- `processid`- process ID of the Python process running the application
+
+Once `adv_data` has been created, it can be updated with additional key-value pairs that contain more metadata about the application, dpeending on whether certain contiions are met.  
+<br>
+
+The <span style="font-weight:bold; font-style:italic" id="zkcontainer_start">\_on_zkcontainer_start</span> is an event handler for the start of a ZooKeeper container.
+
+```
+ _on_zkcontainer_start(self, message_type, container)
+```
+
+It takes the following parameters:
+
+- `message_type` - indicates the type of message being handled
+- `container` - reference to the ZooKeeper container that triggered the event
